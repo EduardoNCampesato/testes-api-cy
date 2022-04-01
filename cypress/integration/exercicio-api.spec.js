@@ -2,7 +2,7 @@
 
 describe('Testes da Funcionalidade Usuários', () => {
      before(() => {
-          cy.token('eduardo.negrao.7@qa.com.br', 'teste').then(function (tkn) { token; })
+          cy.token('eduardo.negrao.7@qa.com.br', 'teste').then(tkn =>{token})
      });
 
      it('Deve validar contrato de usuários', () => {
