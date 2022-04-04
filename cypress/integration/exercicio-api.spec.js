@@ -113,8 +113,9 @@ describe('Testes da Funcionalidade Usuários', () => {
                     Method: 'Delete',
                     url: `usuarios/${id}`,
                     headers: {authorization: token}
-               });
+               })
 
 
 })              
+})
 })
