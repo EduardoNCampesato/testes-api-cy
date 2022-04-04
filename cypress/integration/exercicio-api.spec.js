@@ -1,6 +1,8 @@
 /// <reference types="cypress" />
 
+
 describe('Testes da Funcionalidade Usuários', () => {
+     let token
      before(() => {
           cy.token('eduardo.negrao.7@qa.com.br', 'teste').then(tkn =>{token})
      });
@@ -63,7 +65,7 @@ describe('Testes da Funcionalidade Usuários', () => {
                url: 'usuarios',
                body: {
                     "nome": "Rafael Silva de Souza",
-                    "email": "rafael.silva@qa.com.br",
+                    "email": "rafael.silva1@qa.com.br",
                     "password": "teste",
                     "administrador": "true"
                }
@@ -83,28 +85,36 @@ describe('Testes da Funcionalidade Usuários', () => {
           })
      });
 
-     it.only('Deve editar um usuário previamente cadastrado', () => {
+     it('Deve editar um usuário previamente cadastrado', () => {
          
 
           cy.request('usuarios').then(response => {
-               cy.log(response.body.usuarios[3]._id)
+               let id = response.body.usuarios[3]._id
                cy.request({
                     method: 'PUT',
-                    url: 'usuarios',
+                    url: `usuarios/${id}`,
                     headers: {authorization: token},
-                    body: {
-                         "nome": "Eduardo Campesato",
+                    body: 
+                    {
+                         "nome": "Eduardo Campesato 001",
                          "email": "eduardo.negrao.7@qa.com.br",
                          "password": "teste",
                          "administrador": "true"
                     }
+                  
                })
           })
      });
 
      it('Deve deletar um usuário previamente cadastrado', () => {
-          //TODO: 
-     });
+          cy.request('usuarios').then(response => {
+               let id = response.body.usuarios[3]._id
+               cy.request({
+                    Method: 'Delete',
+                    url: `usuarios/${id}`,
+                    headers: {authorization: token}
+               });
 
 
+})              
 })
