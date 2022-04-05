@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-
+import contrato from '../contracts/usuarios.contract'
 
 describe('Testes da Funcionalidade Usuários', () => {
      let token
@@ -7,8 +7,10 @@ describe('Testes da Funcionalidade Usuários', () => {
           cy.token('eduardo.negrao.7@qa.com.br', 'teste').then(tkn =>{token})
      });
 
-     it('Deve validar contrato de usuários', () => {
-          //TODO: 
+     it.only('Deve validar contrato de usuários', () => {
+          cy.request('usuarios').then(response => {
+               return contrato.validateAsync(response.body)
+          }) 
      });
 
      it('Deve listar usuários cadastrados', () => {
@@ -64,11 +66,15 @@ describe('Testes da Funcionalidade Usuários', () => {
                method: 'POST',
                url: 'usuarios',
                body: {
-                    "nome": "Rafael Silva de Souza",
-                    "email": "rafael.silva1@qa.com.br",
+                    "nome": "Rafael Souza",
+                    "email": "rafael.souza0002@qa.com.br",
                     "password": "teste",
                     "administrador": "true"
-               }
+               },
+               failOnStatusCode: false
+          }).then(response => {
+               expect(response.body.message).to.equal('Cadastro realizado com sucesso')
+               expect(response.status).to.equal(201)
           })
      });
 
@@ -81,9 +87,15 @@ describe('Testes da Funcionalidade Usuários', () => {
                     "email": "rafael.silv#qa.com.br",
                     "password": "teste",
                     "administrador": "true"
-               }
+               },
+               failOnStatusCode: false
+          }).then(response => {
+               expect(response.status).to.equal(400)
           })
-     });
+                             
+          })
+          
+
 
      it('Deve editar um usuário previamente cadastrado', () => {
          
@@ -96,12 +108,14 @@ describe('Testes da Funcionalidade Usuários', () => {
                     headers: {authorization: token},
                     body: 
                     {
-                         "nome": "Eduardo Campesato 001",
-                         "email": "eduardo.negrao.7@qa.com.br",
+                         "nome": "Eduardo Campesato 002",
+                         "email": "eduardo.negrao.002@qa.com.br",
                          "password": "teste",
                          "administrador": "true"
                     }
                   
+               }).then(response => {
+                    expect(response.body.message).to.equal('Registro alterado com sucesso')
                })
           })
      });
@@ -113,9 +127,12 @@ describe('Testes da Funcionalidade Usuários', () => {
                     Method: 'Delete',
                     url: `usuarios/${id}`,
                     headers: {authorization: token}
+               }).then(response => {
+                    expect(response.status).to.equal(200)
                })
 
 
 })              
 })
-})
+});
+
