@@ -13,7 +13,7 @@ describe('Testes da Funcionalidade Usuários', () => {
           }) 
      });
 
-     it('Deve listar usuários cadastrados', () => {
+     it.only('Deve listar usuários cadastrados', () => {
           cy.request({
                method: 'GET',
                url: 'usuarios',

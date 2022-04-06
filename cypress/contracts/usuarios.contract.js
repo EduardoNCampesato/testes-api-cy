@@ -2,7 +2,7 @@ const Joi = require ('joi')
 
 const usuariosSchema = Joi.object({
     quantidade: Joi.number(), 
-    usuarios: Joi.array().usuarios({
+    usuarios: Joi.array().items({
         nome: Joi.string(),
         email: Joi.string(),
         password: Joi.string(),
