@@ -28,7 +28,7 @@ describe('Testes da Funcionalidade Usuários', () => {
                url: 'usuarios',
                body: {
                     "nome": "Rafael Souza",
-                    "email": "rafael.souza.teste002@qa.com.br",
+                    "email": "rafael.souza.teste001@qa.com.br",
                     "password": "teste",
                     "administrador": "true"
                },
